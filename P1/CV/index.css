@@ -58,6 +58,7 @@ button{
     border-width: 1px;
     margin-right: 20px;
     margin-left: 25px;
+    margin-bottom: 5px;
     border-color: yellow;
     color: black;
     background-color: skyblue;
@@ -66,6 +67,7 @@ button{
     border-width: 1px;
     margin-right: 20px;
     margin-left: 25px;
+    margin-bottom: 5px;
     border-color: yellow;
     color: black;
     background-color: skyblue;
@@ -74,6 +76,7 @@ button{
     border-width: 1px;
     margin-right: 1px;
     margin-left: 25px;
+    margin-bottom: 5px;
     border-color: yellow;
     color: black;
     background-color: skyblue;
