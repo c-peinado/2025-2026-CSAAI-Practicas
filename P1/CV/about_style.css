@@ -1,0 +1,104 @@
+/* Propiedades de la caja del cuerpo */
+h2 {
+  padding: 5px;  /* relleno */
+  margin: 10px;  /* Margen */
+  border: solid;
+  border-color: blue;
+}
+
+/*  Propiedades de la caja del párrafo */
+p {
+  margin: 10px;
+  padding: 10px; /* Relleno */
+  border:dashed;
+  border-color: blue;
+}
+
+body {
+  margin: 10px;
+  padding: 10px; /* Relleno */
+  border:solid;
+  border-color: blue;
+}
+
+h1{
+  margin: 1px;
+  padding: 1px;
+}
+
+#b1 {
+  margin: 1px;
+  padding: 5px; /* Relleno */
+  border:dotted;
+  border-color: yellow;
+  background-color: black;
+  color: white;
+}
+#b2 {
+  margin: 1px;
+  padding: 1px; /* Relleno */
+  border:dotted;
+  border-color: red;
+  background-color: black;
+  color: white;
+}
+#b3 {
+  margin: 1px;
+  padding: 1px; /* Relleno */
+  border:dotted;
+  border-color: palevioletred;
+  background-color: black;
+  color: white;
+}
+#b4 {
+  margin: 1px;
+  padding: 1px; /* Relleno */
+  border:dotted;
+  border-color: cyan;
+  background-color: black;
+  color: white;
+}
+#b5 {
+  margin: 1px;
+  padding: 1px; /* Relleno */
+  border:dotted;
+  border-color: orange;
+  background-color: black;
+  color: white;
+}
+
+#b6{
+    margin-right: 50px;
+    margin-left: 120px;
+}
+#b7{
+    margin-right: 50px;
+    margin-left: 50px;
+}
+#b8{
+    margin-right: 120px;
+    margin-left: 50px;
+}
+
+button{
+  padding: 5px; /* Relleno */
+  border:double;
+  border-color: white;
+  background-color: black;
+  color: white;
+}
+
+#n {
+  padding: 1px;
+  margin: 20px;
+  border:solid;
+  border-color: blue;
+  background-color: black;
+  color: white;
+}
+dl {
+    margin: 10px;
+  padding: 10px; /* Relleno */
+  border:dashed;
+  border-color: blue;
+}
