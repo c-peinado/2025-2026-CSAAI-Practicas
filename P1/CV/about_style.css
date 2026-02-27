@@ -4,6 +4,7 @@ h2 {
   margin: 10px;  /* Margen */
   border: solid;
   border-color: blue;
+  color: whitesmoke;
 }
 
 /*  Propiedades de la caja del párrafo */
@@ -12,6 +13,7 @@ p {
   padding: 10px; /* Relleno */
   border:dashed;
   border-color: blue;
+  color: whitesmoke;
 }
 
 body {
@@ -20,11 +22,13 @@ body {
   border:solid;
   border-color: blue;
   background-color: black;
+  color: whitesmoke;
 }
 
 h1{
   margin: 1px;
   padding: 1px;
+  color: whitesmoke;
 }
 
 #b1 {
