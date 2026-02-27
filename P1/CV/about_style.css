@@ -19,6 +19,7 @@ body {
   padding: 10px; /* Relleno */
   border:solid;
   border-color: blue;
+  background-color: black;
 }
 
 h1{
