@@ -8,16 +8,16 @@
 /* Crear columnas de ancho diferente que se colocan una a continuación de la otra */
 .columna {
 float: left;
-padding: 10px;
+padding: auto;
 min-height: 500px;
 }
 
 .izquierda {
-width: 25%;
+width: 35%;
 }
 
 .derecha {
-width: 75%;
+width: 65%;
 }
 
 /* Clear floats despues de las columnas para eliminar la superposición */
@@ -32,41 +32,60 @@ h2{
     padding: 1px;
     border: solid;
     border-color: yellow;
-    color: black;
-    background-color: skyblue;
+    color: yellow;
+    background-color: blue;
+    font-size: 30px;
+}
+h3{
+    margin: 1px;
+    padding: 1px;
+    border: solid;
+    border-color: yellow;
+    color: yellow;
+    background-color: blue;
+    font-size: 30px;
 }
 h4{
     margin: 1px;
-    padding: 1px;
+    padding: 5px;
+    color: yellow;
 }
 h5{
-    margin: 1px;
+    margin: 3px;
     padding: 1px;
 }
 p{
     margin: 1px;
     padding: 1px;
+    margin-left: 10px;
 }
 button{
   border:double;
   border-color: black;
   background-color: white;
   color: black;
+  font-size: 17px;
+}
+li{
+    margin: 1px;
+    padding: 1px;
+    margin-left: 10px;
 }
 
 #b6{
+    margin-top: 5px;
     border-width: 1px;
     margin-right: 20px;
-    margin-left: 25px;
-    margin-bottom: 5px;
+    margin-right: auto;
+    margin-left: 40px;
     border-color: yellow;
     color: black;
     background-color: skyblue;
 }
 #b7{
     border-width: 1px;
-    margin-right: 20px;
-    margin-left: 25px;
+    margin-right: 35px;
+    margin-left: 35px;
     margin-bottom: 5px;
     border-color: yellow;
     color: black;
@@ -74,8 +93,8 @@ button{
 }
 #b8{
     border-width: 1px;
-    margin-right: 1px;
-    margin-left: 25px;
+    margin-right: auto;
+    margin-left: auto;
     margin-bottom: 5px;
     border-color: yellow;
     color: black;
@@ -87,8 +106,8 @@ button{
     border-width: 4px;
     padding: 2px;
     border-color: yellow;
-    color: black;
-    background-color: skyblue;
+    color: yellow;
+    background-color: blue;
 }
 
 #N{
@@ -98,26 +117,26 @@ button{
 }
 
 #c1 {
-    color: black;
-    background-color:skyblue;
+    color: white;
+    background-color:blue;
     border: solid;
     border-width: 2px;
     border-color: yellow;
 }
 
 #c2 {
-    color: black;
-    background-color:skyblue;
+    color: white;
+    background-color:blue;
     border: solid;
     border-width: 2px;
     border-color: yellow;
 }
 body{
-    color: black;
-    background-color:skyblue;
+    color: white;
+    background-color:blue;
     border: solid;
     border-width: 2px;
-    border-color: yellow;
+    font-size: 17px;
 }
 
 /* estilos para imágenes https://www.w3schools.com/css/css3_images.asp */

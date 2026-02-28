@@ -4,9 +4,17 @@ h2 {
   margin: 10px;  /* Margen */
   border: solid;
   border-color: blue;
-  color: whitesmoke;
+  color: yellow;
+  font-size: 30px;
 }
-
+h1{
+  padding: 5px;  /* relleno */
+  margin: 10px;  /* Margen */
+  border: solid;
+  border-color: blue;
+  color: yellow;
+  font-size: 30px;
+}
 /*  Propiedades de la caja del párrafo */
 p {
   margin: 10px;
@@ -23,6 +31,7 @@ body {
   border-color: blue;
   background-color: black;
   color: whitesmoke;
+  font-size: 17px;
 }
 
 h1{
@@ -30,7 +39,18 @@ h1{
   padding: 1px;
   color: whitesmoke;
 }
-
+#l2{
+  color: red;
+}
+#l3{
+  color: palevioletred;
+}
+#l4{
+  color: cyan;
+}
+#l5{
+  color: orange;
+}
 #b1 {
   margin: 1px;
   padding: 5px; /* Relleno */
@@ -73,16 +93,31 @@ h1{
 }
 
 #b6{
-    margin-right: 50px;
-    margin-left: auto;
+    margin-right: auto;
+    margin-left: 80px;
+    border-color: yellow;
+    color: white;
+    background-color: blue;
 }
 #b7{
-    margin-right: 50px;
-    margin-left: auto;
+    margin-right: 25px;
+    margin-left: 25px;
+    border-color: yellow;
+    color: white;
+    background-color: blue;
 }
 #b8{
     margin-right: auto;
-    margin-left: 50px;
+    margin-left: auto;
+    border-color: yellow;
+    color: white;
+    background-color: blue;
+}
+@media screen and (max-width: 600px){
+  #b6{
+    margin-right: auto;
+    margin-left: auto;
+}
 }
 
 button{
@@ -91,6 +126,7 @@ button{
   border-color: white;
   background-color: black;
   color: white;
+  font-size: 17px;
 }
 
 #n {
@@ -99,7 +135,11 @@ button{
   border:solid;
   border-color: blue;
   background-color: black;
-  color: white;
+  color: yellow;
+}
+#N{
+  border: solid;
+  border-color: blue;
 }
 dl {
     margin: 10px;
