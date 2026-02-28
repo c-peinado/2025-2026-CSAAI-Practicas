@@ -75,12 +75,7 @@ li{
 
 #b6{
     padding: 5px;
-    margin-top: 1px;
-    margin-bottom: auto;
     border-width: 1px;
-    margin-right: 20px;
-    margin-right: auto;
-    margin-left: 40px;
     border: solid;
     border-color: yellow;
     color: black;
@@ -89,9 +84,6 @@ li{
 #b7{
     padding: 5px;
     border-width: 1px;
-    margin-right: 35px;
-    margin-left: 35px;
-    margin-bottom: 5px;
     border: solid;
     border-color: yellow;
     color: black;
@@ -100,15 +92,14 @@ li{
 #b8{
     padding: 5px;
     border-width: 1px;
-    margin-right: auto;
-    margin-left: auto;
-    margin-bottom: 5px;
     border: solid;
     border-color: yellow;
     color: black;
     background-color: skyblue;
 }
-
+dt{
+  margin: 20px;
+}
 #p{
     border: solid;
     border-width: 4px;

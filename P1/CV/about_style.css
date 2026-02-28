@@ -94,8 +94,6 @@ h1{
 
 #b6{
     padding: 5px;
-    margin-right: auto;
-    margin-left: 80px;
     border-color: yellow;
     border: double;
     color: white;
@@ -103,8 +101,6 @@ h1{
 }
 #b7{
     padding: 5px;
-    margin-right: 25px;
-    margin-left: 25px;
     border: double;
     border-color: yellow;
     color: white;
@@ -112,8 +108,6 @@ h1{
 }
 #b8{
     padding: 5px;
-    margin-right: auto;
-    margin-left: auto;
     border: double;
     border-color: yellow;
     color: white;
@@ -125,6 +119,11 @@ h1{
     margin-left: auto;
 }
 }
+
+dt{
+  margin: 25px;
+}
+
 
 button{
   padding: 5px; /* Relleno */
@@ -138,8 +137,6 @@ button{
 #n {
   padding: 1px;
   margin: 20px;
-  border:solid;
-  border-color: blue;
   background-color: black;
   color: yellow;
 }
@@ -147,8 +144,14 @@ button{
   border: solid;
   border-color: blue;
 }
-dl {
-    margin: 10px;
+#dl1 {
+  margin: 10px;
+  padding: 10px; /* Relleno */
+  border:dashed;
+  border-color: blue;
+}
+#dl2 {
+  margin: 10px;
   padding: 10px; /* Relleno */
   border:dashed;
   border-color: blue;

@@ -115,8 +115,6 @@ h1{
 }
 #b11{
     padding: 5px;
-    margin-right: auto;
-    margin-left: 80px;
     border-color: yellow;
     border: double;
     color: white;
@@ -124,8 +122,6 @@ h1{
 }
 #b12{
     padding: 5px;
-    margin-right: 25px;
-    margin-left: 25px;
     border: double;
     border-color: yellow;
     color: white;
@@ -133,8 +129,6 @@ h1{
 }
 #b13{
     padding: 5px;
-    margin-right: auto;
-    margin-left: auto;
     border: double;
     border-color: yellow;
     color: white;
@@ -148,6 +142,9 @@ h1{
     color: white;
     background-color: blue;
 }
+}
+dt{
+  margin: 25px;
 }
 
 button{
