@@ -93,22 +93,28 @@ h1{
 }
 
 #b6{
+    padding: 5px;
     margin-right: auto;
     margin-left: 80px;
     border-color: yellow;
+    border: double;
     color: white;
     background-color: blue;
 }
 #b7{
+    padding: 5px;
     margin-right: 25px;
     margin-left: 25px;
+    border: double;
     border-color: yellow;
     color: white;
     background-color: blue;
 }
 #b8{
+    padding: 5px;
     margin-right: auto;
     margin-left: auto;
+    border: double;
     border-color: yellow;
     color: white;
     background-color: blue;

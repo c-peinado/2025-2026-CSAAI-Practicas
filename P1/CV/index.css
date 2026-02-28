@@ -38,7 +38,8 @@ h2{
 }
 h3{
     margin: 1px;
-    padding: 1px;
+    margin-bottom: 5px;
+    padding: 5px;
     border: solid;
     border-color: yellow;
     color: yellow;
@@ -73,29 +74,36 @@ li{
 }
 
 #b6{
-    margin-top: 5px;
+    padding: 5px;
+    margin-top: 1px;
+    margin-bottom: auto;
     border-width: 1px;
     margin-right: 20px;
     margin-right: auto;
     margin-left: 40px;
+    border: solid;
     border-color: yellow;
     color: black;
     background-color: skyblue;
 }
 #b7{
+    padding: 5px;
     border-width: 1px;
     margin-right: 35px;
     margin-left: 35px;
     margin-bottom: 5px;
+    border: solid;
     border-color: yellow;
     color: black;
     background-color: skyblue;
 }
 #b8{
+    padding: 5px;
     border-width: 1px;
     margin-right: auto;
     margin-left: auto;
     margin-bottom: 5px;
+    border: solid;
     border-color: yellow;
     color: black;
     background-color: skyblue;
