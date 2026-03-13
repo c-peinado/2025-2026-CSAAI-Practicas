@@ -17,5 +17,5 @@ boton.onclick = () => {
   cont += 1;
 
   //-- Actualizar el display
-  display.innerHTML = cont;
+  display.innerHTML += ' ' + cont;
 }
