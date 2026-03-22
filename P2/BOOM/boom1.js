@@ -14,7 +14,7 @@ const btnStop = document.getElementById("stop");
 const btnReset = document.getElementById("reset");
 
 // Definir un objeto cronómetro
-const crono = new Crono(gui.display);
+const crono = new Crono(document.getElementById("display"));
 
 // =====================
 // GENERAR CLAVE
