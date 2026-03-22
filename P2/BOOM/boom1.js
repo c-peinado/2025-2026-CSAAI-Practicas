@@ -1,144 +1,162 @@
 let clave = [];
 let intentos = 7;
-let tiempo = 0;
-let intervalo = null;
 let iniciado = false;
 
-// Generar botones 0-9
-const contenedor = document.getElementById("botones");
+// Elementos
+const digitos = document.querySelectorAll(".digito");
+const botones = document.querySelectorAll(".numero");
+const displayIntentos = document.getElementById("intentos");
+const mensaje = document.getElementById("mensaje");
 
-for (let i = 0; i <= 9; i++) {
-  let btn = document.createElement("button");
-  btn.textContent = i;
-  btn.onclick = () => comprobarNumero(i, btn);
-  contenedor.appendChild(btn);
-}
+// Controles
+const btnStart = document.getElementById("start");
+const btnStop = document.getElementById("stop");
+const btnReset = document.getElementById("reset");
 
-// Generar clave secreta
+// =====================
+// GENERAR CLAVE
+// =====================
 function generarClave() {
-  let numeros = [];
+    let numeros = [];
 
-  while (numeros.length < 4) {
-    let n = Math.floor(Math.random() * 10);
-    if (!numeros.includes(n)) {
-      numeros.push(n);
+    while (numeros.length < 4) {
+        let n = Math.floor(Math.random() * 10);
+        if (!numeros.includes(n)) {
+            numeros.push(n);
+        }
     }
-  }
 
-  return numeros;
+    return numeros;
 }
 
-// Mostrar clave (oculta)
-function mostrarClave() {
-  const spans = document.querySelectorAll(".digit");
-  spans.forEach(span => span.textContent = "*");
-}
-
-// Cronómetro
-function startCrono() {
-  if (!intervalo) {
-    intervalo = setInterval(() => {
-      tiempo++;
-      document.getElementById("tiempo").textContent = tiempo;
-    }, 1000);
-  }
-}
-
-function stopCrono() {
-  clearInterval(intervalo);
-  intervalo = null;
-}
-
-// Reset
-function resetGame() {
-  clave = generarClave();
-  intentos = 7;
-  tiempo = 0;
-  iniciado = false;
-
-  document.getElementById("intentos").textContent = intentos;
-  document.getElementById("tiempo").textContent = tiempo;
-  document.getElementById("mensaje").textContent = "";
-
-  mostrarClave();
-  stopCrono();
-
-  document.querySelectorAll("#botones button").forEach(btn => {
-    btn.disabled = false;
-  });
-
-  console.log("Clave secreta:", clave); // para probar
-}
-
-// Lógica del juego
-function comprobarNumero(num, boton) {
-
-  if (!iniciado) {
-    startCrono();
-    iniciado = true;
-  }
-
-  intentos--;
-  document.getElementById("intentos").textContent = intentos;
-
-  boton.disabled = true;
-
-  const spans = document.querySelectorAll(".digit");
-
-  if (clave.includes(num)) {
-    clave.forEach((valor, index) => {
-      if (valor === num) {
-        spans[index].textContent = num;
-        spans[index].classList.add("acierto");
-      }
+// =====================
+// OCULTAR CLAVE
+// =====================
+function ocultarClave() {
+    digitos.forEach(d => {
+        d.textContent = "*";
+        d.style.background = "black";
+        d.style.color = "white";
     });
-  }
-
-  comprobarVictoria();
-
-  if (intentos === 0) {
-    perder();
-  }
 }
 
-// Comprobar victoria
-function comprobarVictoria() {
-  const spans = document.querySelectorAll(".digit");
-
-  let ganados = 0;
-
-  spans.forEach(span => {
-    if (span.textContent !== "*") {
-      ganados++;
+// =====================
+// CRONO
+// =====================
+function iniciarCrono() {
+    if (!iniciado) {
+        start(); // 👈 tu función
+        iniciado = true;
     }
-  });
+}
 
-  if (ganados === 4) {
-    stopCrono();
+btnStart.onclick = () => start();
+btnStop.onclick = () => stop();
 
-    document.getElementById("mensaje").textContent =
-      `🎉 Ganaste en ${tiempo}s con ${7 - intentos} intentos (te quedaban ${intentos})`;
+// =====================
+// RESET
+// =====================
+function resetGame() {
+    clave = generarClave();
+    intentos = 7;
+    iniciado = false;
+
+    displayIntentos.textContent = "Intentos restantes: " + intentos;
+    mensaje.textContent = "Nueva partida preparada. Pulsa start o un número para comenzar.";
+
+    ocultarClave();
+
+    stop();
+    reset(); // 👈 tu función
+
+    botones.forEach(b => b.disabled = false);
+
+    console.log("Clave:", clave); // debug
+}
+
+btnReset.onclick = resetGame;
+
+// =====================
+// CLICK EN NÚMEROS
+// =====================
+botones.forEach(boton => {
+    boton.addEventListener("click", () => {
+
+        const num = parseInt(boton.textContent);
+
+        iniciarCrono();
+
+        intentos--;
+        displayIntentos.textContent = "Intentos restantes: " + intentos;
+
+        boton.disabled = true;
+
+        if (clave.includes(num)) {
+            clave.forEach((valor, i) => {
+                if (valor === num) {
+                    digitos[i].textContent = num;
+                    digitos[i].style.background = "green";
+                }
+            });
+        }
+
+        comprobarVictoria();
+
+        if (intentos === 0) {
+            perder();
+        }
+    });
+});
+
+// =====================
+// VICTORIA
+// =====================
+function comprobarVictoria() {
+    let aciertos = 0;
+
+    digitos.forEach(d => {
+        if (d.textContent !== "*") {
+            aciertos++;
+        }
+    });
+
+    if (aciertos === 4) {
+        stop();
+
+        const tiempo = document.getElementById("display").textContent;
+
+        mensaje.textContent =
+            `🎉 Ganaste | Tiempo: ${tiempo} | Intentos usados: ${7 - intentos} | Restantes: ${intentos}`;
+
+        desactivarBotones();
+    }
+}
+
+// =====================
+// DERROTA
+// =====================
+function perder() {
+    stop();
+
+    mensaje.textContent =
+        `💥 BOOM! Has perdido. La clave era: ${clave.join("")}`;
+
+    clave.forEach((n, i) => {
+        digitos[i].textContent = n;
+        digitos[i].style.background = "red";
+    });
 
     desactivarBotones();
-  }
 }
 
-// Perder
-function perder() {
-  stopCrono();
-
-  document.getElementById("mensaje").textContent =
-    `❌ Perdiste. La clave era: ${clave.join("")}`;
-
-  desactivarBotones();
-}
-
-// Desactivar botones
+// =====================
+// BLOQUEAR BOTONES
+// =====================
 function desactivarBotones() {
-  document.querySelectorAll("#botones button").forEach(btn => {
-    btn.disabled = true;
-  });
+    botones.forEach(b => b.disabled = true);
 }
 
-// Iniciar juego al cargar
+// =====================
+// INICIO
+// =====================
 resetGame();
