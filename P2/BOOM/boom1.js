@@ -13,6 +13,9 @@ const btnStart = document.getElementById("start");
 const btnStop = document.getElementById("stop");
 const btnReset = document.getElementById("reset");
 
+// Definir un objeto cronómetro
+const crono = new Crono(gui.display);
+
 // =====================
 // GENERAR CLAVE
 // =====================
@@ -45,13 +48,13 @@ function ocultarClave() {
 // =====================
 function iniciarCrono() {
     if (!iniciado) {
-        start(); // 👈 tu función
+        crono.start();
         iniciado = true;
     }
 }
 
-btnStart.onclick = () => start();
-btnStop.onclick = () => stop();
+btnStart.onclick = () => crono.start();
+btnStop.onclick = () => crono.stop();
 
 // =====================
 // RESET
@@ -66,8 +69,8 @@ function resetGame() {
 
     ocultarClave();
 
-    stop();
-    reset(); // 👈 tu función
+    crono.stop();
+    crono.reset();
 
     botones.forEach(b => b.disabled = false);
 
@@ -121,7 +124,7 @@ function comprobarVictoria() {
     });
 
     if (aciertos === 4) {
-        stop();
+        crono.stop();
 
         const tiempo = document.getElementById("display").textContent;
 
@@ -136,7 +139,7 @@ function comprobarVictoria() {
 // DERROTA
 // =====================
 function perder() {
-    stop();
+    crono.stop();
 
     mensaje.textContent =
         `💥 BOOM! Has perdido. La clave era: ${clave.join("")}`;
