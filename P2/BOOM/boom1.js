@@ -52,9 +52,14 @@ function iniciarCrono() {
         iniciado = true;
     }
 }
-
-btnStart.onclick = () => crono.start();
-btnStop.onclick = () => crono.stop();
+function pararCrono() {
+    if (iniciado) {
+        crono.stop();
+        iniciado = false;
+    }
+}
+btnStart.onclick = () => iniciarCrono();
+btnStop.onclick = () => pararCrono();
 
 // =====================
 // RESET
