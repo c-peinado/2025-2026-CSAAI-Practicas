@@ -16,9 +16,7 @@ const btnReset = document.getElementById("reset");
 // Definir un objeto cronómetro
 const crono = new Crono(document.getElementById("display"));
 
-// =====================
 // GENERAR CLAVE
-// =====================
 function generarClave() {
     let numeros = [];
 
@@ -32,9 +30,7 @@ function generarClave() {
     return numeros;
 }
 
-// =====================
 // OCULTAR CLAVE
-// =====================
 function ocultarClave() {
     digitos.forEach(d => {
         d.textContent = "*";
@@ -43,9 +39,7 @@ function ocultarClave() {
     });
 }
 
-// =====================
 // CRONO
-// =====================
 function iniciarCrono() {
     if (!iniciado) {
         crono.start();
@@ -56,14 +50,13 @@ function pararCrono() {
     if (iniciado) {
         crono.stop();
         iniciado = false;
+        mensaje.textContent = 'Cronómetro detenido'
     }
 }
 btnStart.onclick = () => iniciarCrono();
 btnStop.onclick = () => pararCrono();
 
-// =====================
 // RESET
-// =====================
 function resetGame() {
     clave = generarClave();
     intentos = 7;
@@ -84,9 +77,7 @@ function resetGame() {
 
 btnReset.onclick = resetGame;
 
-// =====================
 // CLICK EN NÚMEROS
-// =====================
 botones.forEach(boton => {
     boton.addEventListener("click", () => {
 
@@ -116,9 +107,7 @@ botones.forEach(boton => {
     });
 });
 
-// =====================
 // VICTORIA
-// =====================
 function comprobarVictoria() {
     let aciertos = 0;
 
@@ -134,20 +123,18 @@ function comprobarVictoria() {
         const tiempo = document.getElementById("display").textContent;
 
         mensaje.textContent =
-            `🎉 Ganaste | Tiempo: ${tiempo} | Intentos usados: ${7 - intentos} | Restantes: ${intentos}`;
+            `¡Clave descubierta! Tiempo: ${tiempo} - Intentos consumidos: ${7 - intentos} - Intentos restantes: ${intentos}`;
 
         desactivarBotones();
     }
 }
 
-// =====================
 // DERROTA
-// =====================
 function perder() {
     crono.stop();
 
     mensaje.textContent =
-        `💥 BOOM! Has perdido. La clave era: ${clave.join("")}`;
+        `BOOM. Has agotado los intentos. La clave correcta era: ${clave.join("")}. Pulsa Reset para jugar otra vez`;
 
     clave.forEach((n, i) => {
         digitos[i].textContent = n;
@@ -157,14 +144,10 @@ function perder() {
     desactivarBotones();
 }
 
-// =====================
 // BLOQUEAR BOTONES
-// =====================
 function desactivarBotones() {
     botones.forEach(b => b.disabled = true);
 }
 
-// =====================
-// INICIO
-// =====================
+// RESET
 resetGame();
