@@ -44,13 +44,14 @@ function iniciarCrono() {
     if (!iniciado) {
         crono.start();
         iniciado = true;
+        mensaje.textContent = 'Cronómetro en marcha.'
     }
 }
 function pararCrono() {
     if (iniciado) {
         crono.stop();
         iniciado = false;
-        mensaje.textContent = 'Cronómetro detenido'
+        mensaje.textContent = 'Cronómetro detenido.'
     }
 }
 btnStart.onclick = () => iniciarCrono();
@@ -87,7 +88,6 @@ botones.forEach(boton => {
 
         intentos--;
         displayIntentos.textContent = "Intentos restantes: " + intentos;
-
         boton.disabled = true;
 
         if (clave.includes(num)) {
@@ -95,6 +95,7 @@ botones.forEach(boton => {
                 if (valor === num) {
                     digitos[i].textContent = num;
                     digitos[i].style.background = "green";
+                    mensaje.textContent = `Has acertado el número ${num}. Sigue así.`;
                 }
             });
         }
