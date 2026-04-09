@@ -13,7 +13,16 @@ const player = {
   maxEnergy: 5
 };
 
-// ================= Image =================
+// ================= ARRAYS =================
+let bullets = [];
+let enemyBullets = [];
+let aliens = [];
+
+// ================= CONFIG =================
+let alienSpeed = 1;
+let direction = 1;
+
+// ================= IMAGES =================
 const playerImg = new Image();
 playerImg.src = "cabra.png";
 
@@ -24,50 +33,47 @@ const bulletImg = new Image();
 bulletImg.src = "bala.png";
 
 const enemyBulletImg = new Image();
-enemyBulletImg.src = "laser .png";
+enemyBulletImg.src = "laser.png"; // ✔ corregido
 
 // ================= SOUNDS =================
-const laserSound = new Audio("laser.wav")
-const explosionSound = new Audio("explosion.wav");
-const winSound = new Audio("win.wav");
-const gameOverSound = new Audio("lose.wav");
-
+const laserSound = new Audio("assets/laser.wav");
+const explosionSound = new Audio("assets/explosion.wav");
+const winSound = new Audio("assets/win.wav");
+const gameOverSound = new Audio("assets/gameover.wav");
 
 // ================= INPUT =================
 let keys = {};
 document.addEventListener("keydown", e => keys[e.code] = true);
 document.addEventListener("keyup", e => keys[e.code] = false);
 
-// ================= BULLETS =================
-bullets.push({
-  x: player.x + player.width / 2 - 5,
-  y: player.y,
-  width: 10,
-  height: 20
-});
-
-// ================= ALIENS =================
-aliens.push({
-  x: 80 + c * 80,
-  y: 50 + r * 60,
-  width: 40,
-  height: 40,
-  alive: true
-});
+// ================= CREAR ALIENS =================
+for (let r = 0; r < 3; r++) {
+  for (let c = 0; c < 6; c++) {
+    aliens.push({
+      x: 80 + c * 80,
+      y: 50 + r * 60,
+      width: 40,
+      height: 40,
+      alive: true
+    });
+  }
+}
 
 // ================= GAME =================
 let score = 0;
 let gameOver = false;
 let win = false;
 
-
 // ================= SHOOT =================
 function shoot() {
   if (player.energy > 0) {
     bullets.push({
-      x: player.x + player.width / 2,
-      y: player.y
+      x: player.x + player.width / 2 - 5,
+      y: player.y,
+      width: 10,
+      height: 20
     });
+
     player.energy--;
     laserSound.currentTime = 0;
     laserSound.play();
@@ -78,7 +84,7 @@ document.addEventListener("keydown", e => {
   if (e.code === "Space") shoot();
 });
 
-// ================= ENERGY RECHARGE =================
+// ================= ENERGY =================
 setInterval(() => {
   if (player.energy < player.maxEnergy) {
     player.energy++;
@@ -92,7 +98,9 @@ setInterval(() => {
     let shooter = aliveAliens[Math.floor(Math.random() * aliveAliens.length)];
     enemyBullets.push({
       x: shooter.x + shooter.width / 2,
-      y: shooter.y
+      y: shooter.y,
+      width: 10,
+      height: 20
     });
   }
 }, 1000);
@@ -101,15 +109,15 @@ setInterval(() => {
 function update() {
   if (gameOver || win) return;
 
-  // movimiento player
+  // mover jugador
   if (keys["ArrowLeft"] && player.x > 0) player.x -= player.speed;
   if (keys["ArrowRight"] && player.x < canvas.width - player.width) player.x += player.speed;
 
-  // mover balas
+  // balas
   bullets.forEach(b => b.y -= 7);
   enemyBullets.forEach(b => b.y += 4);
 
-  // mover aliens
+  // aliens
   let edge = false;
   aliens.forEach(a => {
     if (!a.alive) return;
@@ -122,15 +130,16 @@ function update() {
     aliens.forEach(a => a.y += 20);
   }
 
-  // colisiones balas jugador
+  // colisiones jugador -> aliens
   bullets.forEach((b, bi) => {
     aliens.forEach(a => {
-      if (a.alive &&
+      if (
+        a.alive &&
         b.x < a.x + a.width &&
-        b.x > a.x &&
+        b.x + b.width > a.x &&
         b.y < a.y + a.height &&
-        b.y > a.y) {
-        
+        b.y + b.height > a.y
+      ) {
         a.alive = false;
         bullets.splice(bi, 1);
         score += 10;
@@ -141,13 +150,13 @@ function update() {
     });
   });
 
-  // colisiones balas enemigas
+  // colisiones enemigos -> jugador
   enemyBullets.forEach((b, bi) => {
     if (
       b.x < player.x + player.width &&
-      b.x > player.x &&
+      b.x + b.width > player.x &&
       b.y < player.y + player.height &&
-      b.y > player.y
+      b.y + b.height > player.y
     ) {
       enemyBullets.splice(bi, 1);
       player.lives--;
@@ -159,9 +168,9 @@ function update() {
     }
   });
 
-  // dificultad dinámica
+  // dificultad
   let alive = aliens.filter(a => a.alive).length;
-  alienSpeed = 1 + (24 - alive) * 0.1;
+  alienSpeed = 1 + (18 - alive) * 0.1;
 
   // victoria
   if (alive === 0) {
@@ -174,27 +183,22 @@ function update() {
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  // PLAYER
   ctx.drawImage(playerImg, player.x, player.y, player.width, player.height);
 
-  // ALIENS
   aliens.forEach(a => {
     if (a.alive) {
       ctx.drawImage(alienImg, a.x, a.y, a.width, a.height);
     }
   });
 
-  // BALAS JUGADOR
   bullets.forEach(b => {
     ctx.drawImage(bulletImg, b.x, b.y, b.width, b.height);
   });
 
-  // BALAS ENEMIGAS
   enemyBullets.forEach(b => {
     ctx.drawImage(enemyBulletImg, b.x, b.y, b.width, b.height);
   });
 
-  // UI
   ctx.fillStyle = "white";
   ctx.fillText("Puntos: " + score, 10, 20);
   ctx.fillText("Vidas: " + player.lives, 10, 40);
