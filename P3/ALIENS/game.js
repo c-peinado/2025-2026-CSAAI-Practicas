@@ -17,6 +17,7 @@ const player = {
 let bullets = [];
 let enemyBullets = [];
 let aliens = [];
+let explosions = [];
 
 // ================= CONFIG =================
 let alienSpeed = 1;
@@ -28,6 +29,9 @@ playerImg.src = "cabra2.png";
 
 const alienImg = new Image();
 alienImg.src = "alien2.png";
+
+const explosionImg = new Image();
+explosionImg.src = "explosion2.png";
 
 const bulletImg = new Image();
 bulletImg.src = "bala2.png";
@@ -130,6 +134,14 @@ function update() {
     aliens.forEach(a => a.y += 20);
   }
 
+  //explosiones
+  explosions.forEach((e, i) => {
+  e.timer--;
+  if (e.timer <= 0) {
+    explosions.splice(i, 1);
+  }
+});
+
   // colisiones jugador -> aliens
   bullets.forEach((b, bi) => {
     aliens.forEach(a => {
@@ -140,7 +152,15 @@ function update() {
         b.y < a.y + a.height &&
         b.y + b.height > a.y
       ) {
+
         a.alive = false;
+
+        explosions.push({
+          x: a.x,
+          y: a.y,
+          size: 40,
+          timer: 20 // duración en frames
+        });
         bullets.splice(bi, 1);
         score += 10;
 
@@ -189,6 +209,10 @@ function draw() {
     if (a.alive) {
       ctx.drawImage(alienImg, a.x, a.y, a.width, a.height);
     }
+  });
+
+  explosions.forEach(e => {
+  ctx.drawImage(explosionImg, e.x, e.y, e.size, e.size);
   });
 
   bullets.forEach(b => {
