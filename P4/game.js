@@ -68,8 +68,16 @@ function playSequence(speed) {
     cells.forEach(c => c.classList.remove("active"));
 
     cells[index].classList.add("active");
-    mainWord.textContent = currentGrid[index];
-
+  
+    if (currentGrid[index] == "☀️")
+      mainWord.textContent = "sol";
+    if (currentGrid[index] == "🌙")
+      mainWord.textContent = "luna";
+    if (currentGrid[index] == "🛏️")
+      mainWord.textContent = "cama";
+    if (currentGrid[index] == "🏠")
+      mainWord.textContent = "casa";
+    
     index++;
 
     if (index < 8) {
@@ -102,12 +110,12 @@ async function startGame() {
   while (currentLevel <= 5 && gameRunning) {
     levelDisplay.textContent = currentLevel;
 
-    statusDisplay.textContent = "Preparación...";
+    statusDisplay.textContent = "En marcha...";
     await wait(1000);
-
+    
     currentGrid = generateLevel(currentLevel, pair);
     renderGrid(currentGrid);
-
+    
     let speed = 800 - (currentLevel * 120);
     playSequence(speed);
 
