@@ -70,14 +70,14 @@ function playSequence(speed) {
     cells[index].classList.add("active");
   
     if (currentGrid[index] == "☀️")
-      mainWord.textContent = "sol";
+      mainWord.textContent = "Sol";
     if (currentGrid[index] == "🌙")
-      mainWord.textContent = "luna";
+      mainWord.textContent = "Luna";
     if (currentGrid[index] == "🛏️")
-      mainWord.textContent = "cama";
+      mainWord.textContent = "Cama";
     if (currentGrid[index] == "🏠")
-      mainWord.textContent = "casa";
-    
+      mainWord.textContent = "Casa";
+
     index++;
 
     if (index < 8) {
