@@ -109,11 +109,7 @@ function moveBot() {
   let dy = ball.y - bot.y;
   let dist = Math.hypot(dx, dy);
 
-  if (dist == 1){
-  shootToGoal();
-  }
-
-  if (ball.x < 100) {
+  if (ball.x < 150) {
     let homeX = canvas.width - 100;
     let homeY = canvas.height / 2;
 
@@ -127,7 +123,7 @@ function moveBot() {
     if (dyHome > 0) bot.y += bot.speed;
   }
 
-  else{
+  if (dist > 7 && ball.x > 150){
     if (dx < 0) bot.x -= bot.speed;
     if (dx > 0) bot.x += bot.speed;
 
@@ -135,8 +131,14 @@ function moveBot() {
     if (dy > 0) bot.y += bot.speed;
   }
 
+  else {
+    kickBall(bot);
+  }
+
   bot.x = Math.max(bot.size, Math.min(canvas.width - bot.size, bot.x));
   bot.y = Math.max(bot.size, Math.min(canvas.height - bot.size, bot.y));
+
+
 }
 
 function shootToGoal() {
