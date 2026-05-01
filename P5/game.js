@@ -32,6 +32,8 @@ function goToMenu() {
   gameRunning = false;
   document.getElementById("menu").classList.remove("hidden");
   document.getElementById("gameUI").classList.add("hidden");
+
+  document.getElementById("message").textContent = ""; // limpiar
 }
 
 // ================= OBJETOS =================
@@ -125,15 +127,17 @@ function moveBall() {
   ball.x += ball.vx;
   ball.y += ball.vy;
 
-  ball.vx *= 0.99;
-  ball.vy *= 0.99;
+  ball.vx *= 0.98;
+  ball.vy *= 0.98;
 
-  // rebotes verticales
-  // rebote horizontal (si no entra en portería)
-  if (ball.x <= 0 || ball.x >= canvas.width) {
-    if (ball.y < goalTop || ball.y > goalBottom) {
-      ball.vx *= -1;
-    }
+  // rebote arriba/abajo
+  if (ball.y <= ball.size || ball.y >= canvas.height - ball.size) {
+    ball.vy *= -1;
+  }
+
+  // rebote izquierda/derecha (solo si NO es gol)
+  if (ball.x <= ball.size || ball.x >= canvas.width - ball.size) {
+    ball.vx *= -1;
   }
 }
 
@@ -174,8 +178,8 @@ function kickBall(p) {
   let dist = Math.hypot(dx, dy);
 
   if (dist < 20) {
-    ball.vx = dx * 0.6;
-    ball.vy = dy * 0.6;
+    ball.vx = dx * 0.3;
+    ball.vy = dy * 0.3;
   }
 }
 
@@ -186,10 +190,13 @@ function updateScore() {
     `${score.player} - ${score.bot}`;
 }
 
-function showMessage(text) {
+function showMessage(text, persist = false) {
   const msg = document.getElementById("message");
   msg.textContent = text;
-  setTimeout(() => msg.textContent = "", 2000);
+
+  if (!persist) {
+    setTimeout(() => msg.textContent = "", 2000);
+  }
 }
 
 function drawDirection() {
@@ -233,7 +240,8 @@ function endGame() {
   gameRunning = false;
 
   let text = score.player > score.bot ? "¡Has ganado!" : "Has perdido";
-  showMessage(text);
+
+  showMessage(text, true);
 }
 
 // ================= DRAW =================
