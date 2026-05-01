@@ -107,8 +107,9 @@ function movePlayer() {
 function moveBot() {
   let targetX = ball.x;
   let targetY = ball.y;
+  let dist = Math.hypot(dx, dy);
 
-  if (dis < 25){
+  if (dist < 25){
   if (targetY < bot.y) bot.y -= bot.speed;
   if (targetY > bot.y) bot.y += bot.speed;
 
