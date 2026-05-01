@@ -105,16 +105,16 @@ function movePlayer() {
 
 // --- Bot (IA básica) ---
 function moveBot() {
-  let targetX = ball.x;
-  let targetY = ball.y;
+  let dx = ball.x - bot.x;
+  let dy = ball.y - bot.y;
   let dist = Math.hypot(dx, dy);
 
   if (dist < 25){
-  if (targetY < bot.y) bot.y -= bot.speed;
-  if (targetY > bot.y) bot.y += bot.speed;
+  if (dx < 0) bot.x -= bot.speed;
+  if (dx > 0) bot.x += bot.speed;
 
-  if (targetX < bot.x) bot.x -= bot.speed;
-  if (targetX > bot.x) bot.x += bot.speed;
+  if (dy < 0) bot.y -= bot.speed;
+  if (dy > 0) bot.y += bot.speed;
   if (ball.x < bot.x) {
     shootToGoal();
   }
