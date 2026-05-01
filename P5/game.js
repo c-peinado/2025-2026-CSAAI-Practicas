@@ -107,17 +107,15 @@ function moveBot() {
   let targetX = ball.x;
   let targetY = ball.y;
 
-  // si la pelota está lejos, vuelve a defender
-  if (ball.x < canvas.width / 2) {
-    targetX = canvas.width - 100;
-    targetY = canvas.height / 2;
-  }
-
   if (targetY < bot.y) bot.y -= bot.speed;
   if (targetY > bot.y) bot.y += bot.speed;
 
   if (targetX < bot.x) bot.x -= bot.speed;
   if (targetX > bot.x) bot.x += bot.speed;
+
+  // límites
+  bot.x = Math.max(bot.size, Math.min(canvas.width - bot.size, bot.x));
+  bot.y = Math.max(bot.size, Math.min(canvas.height - bot.size, bot.y));
 
   kickBall(bot);
 }
@@ -178,8 +176,8 @@ function kickBall(p) {
   let dist = Math.hypot(dx, dy);
 
   if (dist < 20) {
-    ball.vx = dx * 0.3;
-    ball.vy = dy * 0.3;
+    ball.vx = dx * 0.4;
+    ball.vy = dy * 0.4;
   }
 }
 
@@ -239,7 +237,7 @@ function countdown(callback) {
 function endGame() {
   gameRunning = false;
 
-  let text = score.player > score.bot ? "¡Has ganado!" : "Has perdido";
+  let text = score.player > score.bot ? "¡Has ganado! Vueleve al menú" : "Has perdido Vueleve al menú";
 
   showMessage(text, true);
 }
