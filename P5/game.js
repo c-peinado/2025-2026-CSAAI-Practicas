@@ -107,13 +107,16 @@ function moveBot() {
   let targetX = ball.x;
   let targetY = ball.y;
 
-  if (dis > 25){
+  if (ball.x < canvas.width / 2) {
+    targetX = canvas.width - 100;
+    targetY = canvas.height / 2;
+  }
+
   if (targetY < bot.y) bot.y -= bot.speed;
   if (targetY > bot.y) bot.y += bot.speed;
 
   if (targetX < bot.x) bot.x -= bot.speed;
   if (targetX > bot.x) bot.x += bot.speed;
-  }
 
   else {
     shootToGoal(bot);
