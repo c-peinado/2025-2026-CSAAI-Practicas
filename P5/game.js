@@ -107,11 +107,17 @@ function moveBot() {
   let targetX = ball.x;
   let targetY = ball.y;
 
+  if (dis > 25){
   if (targetY < bot.y) bot.y -= bot.speed;
   if (targetY > bot.y) bot.y += bot.speed;
 
   if (targetX < bot.x) bot.x -= bot.speed;
   if (targetX > bot.x) bot.x += bot.speed;
+  }
+
+  else {
+    shootToGoal(bot);
+  }
 
   // límites
   bot.x = Math.max(bot.size, Math.min(canvas.width - bot.size, bot.x));
@@ -119,6 +125,23 @@ function moveBot() {
 
   kickBall(bot);
 }
+
+function shootToGoal(p) {
+  let targetX = 0; // portería izquierda
+  let targetY = goalCenterY;
+
+  let dx = targetX - ball.x;
+  let dy = targetY - ball.y;
+  let dist = Math.hypot(dx, dy);
+
+  // normalizar dirección
+  dx /= dist;
+  dy /= dist;
+
+  ball.vx = dx * 0.4;
+  ball.vy = dy * 0.4;
+}
+
 
 // --- Pelota ---
 function moveBall() {
