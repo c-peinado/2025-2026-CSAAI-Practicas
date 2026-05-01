@@ -4,6 +4,7 @@ const ctx = canvas.getContext("2d");
 const goalHeight = 100;
 const goalTop = canvas.height / 2 - goalHeight / 2;
 const goalBottom = canvas.height / 2 + goalHeight / 2;
+const goalCenterY = canvas.height / 2;
 
 let gameMode = null;
 let gameRunning = false;
@@ -141,10 +142,8 @@ function shootToGoal() {
   dx /= dist;
   dy /= dist;
 
-  let power = 5;
-
-  ball.vx = dx * power;
-  ball.vy = dy * power;
+  ball.vx = dx * 0.4;
+  ball.vy = dy * 0.4;
 }
 
 // --- Pelota ---
