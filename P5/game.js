@@ -109,7 +109,7 @@ function moveBot() {
   let dy = ball.y - bot.y;
   let dist = Math.hypot(dx, dy);
 
-  if (dist <= 5){
+  if (dist == 1){
   shootToGoal();
   }
 
