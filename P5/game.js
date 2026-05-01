@@ -1,6 +1,10 @@
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
+const goalHeight = 100;
+const goalTop = canvas.height / 2 - goalHeight / 2;
+const goalBottom = canvas.height / 2 + goalHeight / 2;
+
 let gameMode = null;
 let gameRunning = false;
 
@@ -87,8 +91,8 @@ function movePlayer() {
   if (keys["ArrowRight"]) player.x += player.speed;
 
   // límites
-  player.x = Math.max(0, Math.min(canvas.width, player.x));
-  player.y = Math.max(0, Math.min(canvas.height, player.y));
+  player.x = Math.max(player.size, Math.min(canvas.width - player.size, player.x));
+  player.y = Math.max(player.size, Math.min(canvas.height - player.size, player.y));
 
   // disparo
   if (keys[" "]) {
@@ -98,11 +102,20 @@ function movePlayer() {
 
 // --- Bot (IA básica) ---
 function moveBot() {
-  if (ball.y < bot.y) bot.y -= bot.speed;
-  if (ball.y > bot.y) bot.y += bot.speed;
+  let targetX = ball.x;
+  let targetY = ball.y;
 
-  if (ball.x < bot.x) bot.x -= bot.speed;
-  if (ball.x > bot.x) bot.x += bot.speed;
+  // si la pelota está lejos, vuelve a defender
+  if (ball.x < canvas.width / 2) {
+    targetX = canvas.width - 100;
+    targetY = canvas.height / 2;
+  }
+
+  if (targetY < bot.y) bot.y -= bot.speed;
+  if (targetY > bot.y) bot.y += bot.speed;
+
+  if (targetX < bot.x) bot.x -= bot.speed;
+  if (targetX > bot.x) bot.x += bot.speed;
 
   kickBall(bot);
 }
@@ -112,20 +125,28 @@ function moveBall() {
   ball.x += ball.vx;
   ball.y += ball.vy;
 
-  ball.vx *= 0.98;
-  ball.vy *= 0.98;
+  ball.vx *= 0.99;
+  ball.vy *= 0.99;
 
   // rebotes verticales
-  if (ball.y <= 0 || ball.y >= canvas.height) ball.vy *= -1;
+  // rebote horizontal (si no entra en portería)
+  if (ball.x <= 0 || ball.x >= canvas.width) {
+    if (ball.y < goalTop || ball.y > goalBottom) {
+      ball.vx *= -1;
+    }
+  }
 }
 
 // --- Gol ---
 function checkGoal() {
-  if (ball.x <= 0) {
+  // portería izquierda (bot marca)
+  if (ball.x <= 0 && ball.y > goalTop && ball.y < goalBottom) {
     score.bot++;
     goal("¡Gol rival!");
   }
-  if (ball.x >= canvas.width) {
+
+  // portería derecha (jugador marca)
+  if (ball.x >= canvas.width && ball.y > goalTop && ball.y < goalBottom) {
     score.player++;
     goal("¡GOOOL!");
   }
@@ -153,8 +174,8 @@ function kickBall(p) {
   let dist = Math.hypot(dx, dy);
 
   if (dist < 20) {
-    ball.vx = dx * 0.3;
-    ball.vy = dy * 0.3;
+    ball.vx = dx * 0.6;
+    ball.vy = dy * 0.6;
   }
 }
 
@@ -169,6 +190,23 @@ function showMessage(text) {
   const msg = document.getElementById("message");
   msg.textContent = text;
   setTimeout(() => msg.textContent = "", 2000);
+}
+
+function drawDirection() {
+  let dx = 0, dy = 0;
+
+  if (keys["ArrowUp"]) dy = -1;
+  if (keys["ArrowDown"]) dy = 1;
+  if (keys["ArrowLeft"]) dx = -1;
+  if (keys["ArrowRight"]) dx = 1;
+
+  if (dx !== 0 || dy !== 0) {
+    ctx.strokeStyle = "cyan";
+    ctx.beginPath();
+    ctx.moveTo(player.x, player.y);
+    ctx.lineTo(player.x + dx * 30, player.y + dy * 30);
+    ctx.stroke();
+  }
 }
 
 // ================= CUENTA ATRÁS =================
@@ -224,4 +262,15 @@ function draw() {
   ctx.beginPath();
   ctx.arc(ball.x, ball.y, ball.size, 0, Math.PI * 2);
   ctx.fill();
+
+  // porterías
+  ctx.fillStyle = "yellow";
+
+  // izquierda
+  ctx.fillRect(0, goalTop, 10, goalHeight);
+
+  // derecha
+  ctx.fillRect(canvas.width - 10, goalTop, 10, goalHeight);
+
+  drawDirection()
 }
