@@ -123,7 +123,7 @@ function moveBot() {
     if (dyHome > 0) bot.y += bot.speed;
   }
 
-  if (dist > 7 && ball.x > 150){
+  if (dist > 15 && ball.x > 150){
     if (dx < 0) bot.x -= bot.speed;
     if (dx > 0) bot.x += bot.speed;
 
