@@ -115,14 +115,22 @@ function moveBot() {
 
   if (dy < 0) bot.y -= bot.speed;
   if (dy > 0) bot.y += bot.speed;
-  if (ball.x < bot.x) {
-    shootToGoal();
-  }
+  
+  shootToGoal();
   }
 
   else {
-    targetX = canvas.width - 100;
-    targetY = canvas.height / 2;
+    let homeX = canvas.width - 100;
+    let homeY = canvas.height / 2;
+
+    let dxHome = homeX - bot.x;
+    let dyHome = homeY - bot.y;
+
+    if (dxHome < 0) bot.x -= bot.speed;
+    if (dxHome > 0) bot.x += bot.speed;
+
+    if (dyHome < 0) bot.y -= bot.speed;
+    if (dyHome > 0) bot.y += bot.speed;
   }
 
   bot.x = Math.max(bot.size, Math.min(canvas.width - bot.size, bot.x));
