@@ -107,22 +107,44 @@ function moveBot() {
   let targetX = ball.x;
   let targetY = ball.y;
 
-  if (ball.x < canvas.width / 2) {
-    targetX = canvas.width - 100;
-    targetY = canvas.height / 2;
-  }
-
+  if (dis < 25){
   if (targetY < bot.y) bot.y -= bot.speed;
   if (targetY > bot.y) bot.y += bot.speed;
 
   if (targetX < bot.x) bot.x -= bot.speed;
   if (targetX > bot.x) bot.x += bot.speed;
+  if (ball.x < bot.x) {
+    shootToGoal();
+  }
+  }
 
-  // límites
+  else {
+    targetX = canvas.width - 100;
+    targetY = canvas.height / 2;
+  }
+
   bot.x = Math.max(bot.size, Math.min(canvas.width - bot.size, bot.x));
   bot.y = Math.max(bot.size, Math.min(canvas.height - bot.size, bot.y));
+}
 
-  kickBall(bot);
+function shootToGoal() {
+  let targetX = 0; // portería izquierda (jugador)
+  
+  // pequeño error para que no sea perfecto
+  let error = (Math.random() - 0.5) * 60;
+  let targetY = canvas.height / 2 + error;
+
+  let dx = targetX - ball.x;
+  let dy = targetY - ball.y;
+  let dist = Math.hypot(dx, dy);
+
+  dx /= dist;
+  dy /= dist;
+
+  let power = 5;
+
+  ball.vx = dx * power;
+  ball.vy = dy * power;
 }
 
 // --- Pelota ---
@@ -285,5 +307,5 @@ function draw() {
   // derecha
   ctx.fillRect(canvas.width - 10, goalTop, 10, goalHeight);
 
-  drawDirection()
+  drawDirection();
 }
