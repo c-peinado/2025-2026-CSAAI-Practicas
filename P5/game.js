@@ -134,8 +134,10 @@ function moveBall() {
   }
 
   // rebote izquierda/derecha (solo si NO es gol)
-  if (ball.x <= ball.size || ball.x >= canvas.width - ball.size) {
+  if (ball.x <= ball.size) {
+  if (ball.y < goalTop || ball.y > goalBottom) {
     ball.vx *= -1;
+  }
   }
 }
 
