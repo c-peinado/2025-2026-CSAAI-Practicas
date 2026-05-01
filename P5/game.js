@@ -109,7 +109,7 @@ function moveBot() {
   let dy = ball.y - bot.y;
   let dist = Math.hypot(dx, dy);
 
-  if (ball.x < 150) {
+  if (ball.x < 150 || ball.y > 370 || ball.y < 30) {
     let homeX = canvas.width - 100;
     let homeY = canvas.height / 2;
 
